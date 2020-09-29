@@ -49,6 +49,8 @@ import { HttpConfigInterceptor } from '../shared/interceptors/http.token.interce
 import { DisplayNamesPipe } from '../shared/pipes/display-names/display-names.pipe';
 import { environment } from 'src/environments/environment';
 import { HomeComponent } from './home/home.component';
+import { ArchiveAddComponent } from './archive/archive-add/archive-add.component';
+import { ArchiveListComponent } from './archive/archive-list/archive-list.component';
 
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
@@ -73,7 +75,10 @@ registerLocaleData(localeTr, 'tr-TR');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: ArchiveListComponent },
+  { path: 'arsiv', component: ArchiveListComponent },
+  { path: 'arsiv/:id', component: ArchiveAddComponent },
+  { path: '', component: ArchiveListComponent },
   { path: 'home', component: HomeComponent }
 ];
 
@@ -82,7 +87,7 @@ const appRoutes: Routes = [
     AppComponent,
     MenuComponent,
 
-    ConfirmationComponent,
+    ConfirmationComponent, ArchiveAddComponent, ArchiveListComponent,
     DisplayNamesPipe,
     HomeComponent
   ],

@@ -1,1 +1,37 @@
-<p>archive-list works!</p>
+<ngx-spinner type="ball-clip-rotate" size="large"></ngx-spinner>
+
+<mat-card class="card--margin">
+    <mat-card-title>Arşiv</mat-card-title>
+    <mat-card-subtitle>Arama</mat-card-subtitle>
+    <form [formGroup]="archiveFilterForm">
+        <mat-form-field appearance="outline" style="width: 49%">
+            <mat-label>Ara</mat-label>
+            <input matInput placeholder="Ara" formControlName="name" />
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </form>
+    <mat-list>
+        <mat-list-item class="mat-list-option ng-star-inserted" *ngFor="let archive of archives">
+
+            <h3 matLine style="margin-left: 0.5rem">{{ archive.name }}</h3>
+
+            <button routerLink="/arsiv/{{ archive.id }}" style="margin-left: 24px;" mat-icon-button
+                aria-label="Arşiv düzenle">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button (click)="deleteArchive(archive)" style="margin-left: 24px;" mat-icon-button aria-label="Arşiv Sil">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <mat-divider></mat-divider>
+        </mat-list-item>
+    </mat-list>
+</mat-card>
+
+<div class="fixed-bottom fixed-bottom--right">
+    <button [color]="'light-blue'" mat-fab routerLink="/arsiv/:id" style="margin-right : 14px;">
+        <mat-icon>add</mat-icon>
+    </button>
+    <button mat-fab color="warn" style="margin-right : 14px;" (click)="goToTop()">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+</div>
