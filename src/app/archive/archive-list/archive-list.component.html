@@ -95,11 +95,14 @@
     </mat-card-content>
 </mat-card>
 
-<!-- <div class="fixed-bottom fixed-bottom--right">
-    <button [color]="'light-blue'" mat-fab routerLink="/arsiv/:id" style="margin-right : 14px;">
+<div class="fixed-bottom fixed-bottom--right">
+    <!--  <button [color]="'light-blue'" mat-fab routerLink="/arsiv/:id" style="margin-right : 14px;">
         <mat-icon>add</mat-icon>
-    </button>
+    </button> -->
     <button mat-fab color="warn" style="margin-right : 14px;" (click)="goToTop()">
         <mat-icon>keyboard_arrow_up</mat-icon>
     </button>
-</div> -->
+    <button mat-fab color="warn" style="margin-right : 14px;" (click)="onExportExcel()">
+        <mat-icon>local_printshop</mat-icon>
+    </button>
+</div>

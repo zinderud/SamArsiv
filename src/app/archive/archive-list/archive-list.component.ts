@@ -11,6 +11,7 @@ import { DatabaseService } from '../../../shared/services/database/database.serv
 import { ArchiveEntity } from '../../../shared/entities/archive.entitiy';
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 import { ArchiveAddComponent } from '../archive-add/archive-add.component';
+import { ExportXlsService } from 'src/shared/services/export.xls.service';
 
 @Component({
   selector: 'app-archive-list',
@@ -37,7 +38,8 @@ export class ArchiveListComponent implements OnInit {
     private _databaseService: DatabaseService,
     private dialog: MatDialog,
     private spinner: NgxSpinnerService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private excelservice: ExportXlsService,
   ) { }
 
   async ngOnInit() {
@@ -160,6 +162,11 @@ export class ArchiveListComponent implements OnInit {
       );
     }
   }
+  onExportExcel() {
+    console.log(this.archives);
+    this.excelservice.jsonToSheetExport('dasd.xlsx', 'sorgu', this.archives);
+  }
+
 
 
 

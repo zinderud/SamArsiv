@@ -51,6 +51,7 @@ import { environment } from 'src/environments/environment';
 import { HomeComponent } from './home/home.component';
 import { ArchiveAddComponent } from './archive/archive-add/archive-add.component';
 import { ArchiveListComponent } from './archive/archive-list/archive-list.component';
+import { ExportXlsService } from 'src/shared/services/export.xls.service';
 
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
@@ -138,7 +139,8 @@ const appRoutes: Routes = [
     {
       provide: ErrorHandler,
       useClass: SentryErrorHandler
-    }
+    },
+    ExportXlsService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
