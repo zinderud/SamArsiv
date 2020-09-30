@@ -6,11 +6,11 @@
     <form [formGroup]="archiveFilterForm">
         <mat-form-field appearance="outline" style="width: 49%">
             <mat-label>Ara</mat-label>
-            <input matInput placeholder="Ara" formControlName="name" />
+            <input matInput placeholder="Tc giriniz" formControlName="tc" />
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </form>
-    <mat-list>
+    <!--     <mat-list>
         <mat-list-item class="mat-list-option ng-star-inserted" *ngFor="let archive of archives">
 
             <h3 matLine style="margin-left: 0.5rem">{{ archive.name }}</h3>
@@ -24,14 +24,82 @@
             </button>
             <mat-divider></mat-divider>
         </mat-list-item>
-    </mat-list>
+    </mat-list> -->
+
+
+
+    <mat-card-content>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- d_no Column -->
+                <ng-container matColumnDef="d_no">
+                    <th mat-header-cell *matHeaderCellDef>Dosya no</th>
+                    <td mat-cell *matCellDef="let archive" class="text-uppercase">
+                        {{ archive.d_no }}
+                    </td>
+                </ng-container>
+
+                <!-- s_no Column -->
+                <ng-container matColumnDef="s_no">
+                    <th mat-header-cell *matHeaderCellDef>Sıra no</th>
+                    <td mat-cell *matCellDef="let archive" class="text-uppercase">
+                        {{ archive.s_no }}
+                    </td>
+                </ng-container>
+
+                <!-- ad soyad Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Ad Soyad</th>
+                    <td mat-cell *matCellDef="let archive" class="text-uppercase">
+                        {{ archive.name }}
+                    </td>
+                </ng-container>
+
+                <!-- tc Column -->
+                <ng-container matColumnDef="tc">
+                    <th mat-header-cell *matHeaderCellDef>tc</th>
+                    <td mat-cell *matCellDef="let archive" class="text-uppercase">
+                        {{ archive.tc }}
+                    </td>
+                </ng-container>
+
+                <!-- edit Column -->
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let archive">
+                        <span (click)="editOrAddArchive(archive)">
+                            <mat-icon style="height: 20px;font-size: 20px; cursor: pointer;margin-right: 2vw;">edit
+                            </mat-icon>
+                        </span>
+                    </td>
+                </ng-container>
+
+                <!-- delete Column -->
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let archive">
+                        <span (click)="deleteArchive(archive)">
+                            <mat-icon style=" height: 20px;font-size: 20px; cursor: pointer;">delete</mat-icon>
+                        </span>
+
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <mat-paginator [length]="100" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-card-content>
 </mat-card>
 
-<div class="fixed-bottom fixed-bottom--right">
+<!-- <div class="fixed-bottom fixed-bottom--right">
     <button [color]="'light-blue'" mat-fab routerLink="/arsiv/:id" style="margin-right : 14px;">
         <mat-icon>add</mat-icon>
     </button>
     <button mat-fab color="warn" style="margin-right : 14px;" (click)="goToTop()">
         <mat-icon>keyboard_arrow_up</mat-icon>
     </button>
-</div>
+</div> -->

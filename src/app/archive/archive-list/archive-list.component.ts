@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatPaginator, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Like } from 'typeorm';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -10,6 +10,7 @@ import IArchive from '../../../shared/interfaces/archive.interface';
 import { DatabaseService } from '../../../shared/services/database/database.service';
 import { ArchiveEntity } from '../../../shared/entities/archive.entitiy';
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
+import { ArchiveAddComponent } from '../archive-add/archive-add.component';
 
 @Component({
   selector: 'app-archive-list',
@@ -19,6 +20,17 @@ import { ConfirmationComponent } from '../../../shared/components/confirmation/c
 export class ArchiveListComponent implements OnInit {
   public archiveFilterForm: FormGroup;
   public archives: IArchive[];
+  displayedColumns: string[] = [
+    'd_no',
+    's_no',
+    'name',
+    'tc',
+    'edit',
+    'delete'
+  ];
+  public dataSource = new MatTableDataSource<IArchive>();
+
+  @ViewChild(MatPaginator, null) paginator: MatPaginator;
 
   constructor(
     private _fb: FormBuilder,
@@ -30,22 +42,24 @@ export class ArchiveListComponent implements OnInit {
 
   async ngOnInit() {
     this.archiveFilterForm = this._fb.group({
-      name: ''
+      tc: ''
     });
 
-    this.archiveFilterForm.controls.name.valueChanges
+    this.archiveFilterForm.controls.tc.valueChanges
       .pipe(debounceTime(2000), distinctUntilChanged())
-      .subscribe(async (value: string) => {
+      .subscribe(async (value: number) => {
         try {
           this.spinner.show();
           await this._databaseService.connection
             .then(async () => {
-              if (typeof value === 'string') {
-                const archives = await ArchiveEntity.find({
-                  name: Like(`%${value}%`)
-                });
-                this.archives = archives as IArchive[];
-              }
+
+              const archives = await ArchiveEntity.find({
+                tc: value
+              });
+              this.archives = archives as IArchive[];
+              this.dataSource.data = archives;
+              this.dataSource.paginator = this.paginator;
+
             })
             .finally(() => {
               this.spinner.hide();
@@ -79,6 +93,8 @@ export class ArchiveListComponent implements OnInit {
         .then(async () => {
           const archives = await ArchiveEntity.find();
           this.archives = archives as IArchive[];
+          this.dataSource.data = archives;
+          this.dataSource.paginator = this.paginator;
         })
         .finally(() => {
           this.spinner.hide();
@@ -108,7 +124,7 @@ export class ArchiveListComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async data => {
         if (data) {
           await this._databaseService.connection.then(async () => {
-            await ArchiveEntity.update({ id: archive.id }, { d_no: archive.d_no });
+            await ArchiveEntity.delete({ id: archive.id });
             await this.getArchives();
           });
         }
@@ -120,4 +136,31 @@ export class ArchiveListComponent implements OnInit {
       });
     }
   }
+
+  editOrAddArchive(archive?: IArchive): void {
+    try {
+      const dialogRef = this.dialog.open(ArchiveAddComponent, {
+        minWidth: '75%',
+        minHeight: '75%',
+        data: { ...archive }
+      });
+
+      dialogRef.afterClosed().subscribe(async () => {
+        await this.getArchives();
+      });
+    } catch (err) {
+      console.error(err);
+      this._snackBar.open(
+        `hata oluştu ${archive.id ? 'düzenleme' : 'ekleme işlemi'
+        }  `,
+        'OK',
+        {
+          duration: 2000
+        }
+      );
+    }
+  }
+
+
+
 }
