@@ -1,0 +1,16 @@
+<p>archive-import works!</p>
+<mat-card>
+    <div>
+        <input fullWidth id="file" type="file" (change)="fileUploadExcel($event)" multiple="false">
+    </div>
+
+</mat-card>
+
+<mat-card>
+    <div>
+
+
+        <button type="button" nbButton (click)="importData()" status="primary">Başla</button>
+    </div>
+
+</mat-card>

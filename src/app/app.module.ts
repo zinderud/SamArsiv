@@ -52,6 +52,7 @@ import { HomeComponent } from './home/home.component';
 import { ArchiveAddComponent } from './archive/archive-add/archive-add.component';
 import { ArchiveListComponent } from './archive/archive-list/archive-list.component';
 import { ExportXlsService } from 'src/shared/services/export.xls.service';
+import { ArchiveImportComponent } from './archive/archive-import/archive-import.component';
 
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
@@ -79,6 +80,8 @@ const appRoutes: Routes = [
   { path: '', component: ArchiveListComponent },
   { path: 'arsiv', component: ArchiveListComponent },
   { path: 'arsiv/:id', component: ArchiveAddComponent },
+  { path: 'arsiv/add', component: ArchiveAddComponent },
+  { path: 'arsiv/import', component: ArchiveImportComponent },
   { path: '', component: ArchiveListComponent },
   { path: 'home', component: HomeComponent }
 ];
@@ -90,7 +93,8 @@ const appRoutes: Routes = [
 
     ConfirmationComponent, ArchiveAddComponent, ArchiveListComponent,
     DisplayNamesPipe,
-    HomeComponent
+    HomeComponent,
+    ArchiveImportComponent
   ],
   imports: [
     RouterModule.forRoot(

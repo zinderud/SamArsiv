@@ -15,8 +15,10 @@ export class DataAcessSettings {
 
   private static getPaths() {
     if (environment.production) {
-      this.dataSubFolder = '/';
-      DataAcessSettings.appPath = remote.app.getPath('userData');
+      /*  this.dataSubFolder = '/';
+       DataAcessSettings.appPath = remote.app.getPath('userData'); */
+      this.dataSubFolder = 'dist/assets/data';
+      DataAcessSettings.appPath = remote.app.getAppPath();
     } else {
       // return folder where app is running
       this.dataSubFolder = 'dist/assets/data';
