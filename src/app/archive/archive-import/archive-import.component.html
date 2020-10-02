@@ -1,7 +1,13 @@
 <p>archive-import works!</p>
 <mat-card>
     <div>
-        <input fullWidth id="file" type="file" (change)="fileUploadExcel($event)" multiple="false">
+
+
+        <label for="singleFile">dosya yükle</label>
+
+        <input #selectFile id="file" type="file" (change)="fileUploadExcel($event)" multiple="false">
+
+
     </div>
 
 </mat-card>

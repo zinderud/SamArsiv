@@ -35,7 +35,7 @@ import {
   MatPaginatorIntl
 } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material';
+import { MatNativeDateModule, MatProgressBarModule, MAT_DATE_LOCALE } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 
 import { AppComponent } from './app.component';
@@ -53,6 +53,8 @@ import { ArchiveAddComponent } from './archive/archive-add/archive-add.component
 import { ArchiveListComponent } from './archive/archive-list/archive-list.component';
 import { ExportXlsService } from 'src/shared/services/export.xls.service';
 import { ArchiveImportComponent } from './archive/archive-import/archive-import.component';
+import { MaterialFileUploadComponent } from '../shared/components/material-file-upload/material-file-upload.component';
+
 
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
@@ -80,8 +82,8 @@ const appRoutes: Routes = [
   { path: '', component: ArchiveListComponent },
   { path: 'arsiv', component: ArchiveListComponent },
   { path: 'arsiv/:id', component: ArchiveAddComponent },
-  { path: 'arsiv/add', component: ArchiveAddComponent },
-  { path: 'arsiv/import', component: ArchiveImportComponent },
+
+  { path: 'import', component: ArchiveImportComponent },
   { path: '', component: ArchiveListComponent },
   { path: 'home', component: HomeComponent }
 ];
@@ -91,7 +93,7 @@ const appRoutes: Routes = [
     AppComponent,
     MenuComponent,
 
-    ConfirmationComponent, ArchiveAddComponent, ArchiveListComponent,
+    ConfirmationComponent, ArchiveAddComponent, ArchiveListComponent, MaterialFileUploadComponent,
     DisplayNamesPipe,
     HomeComponent,
     ArchiveImportComponent
@@ -125,6 +127,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatStepperModule,
     MatSnackBarModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,

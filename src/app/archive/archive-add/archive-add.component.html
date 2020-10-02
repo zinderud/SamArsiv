@@ -3,19 +3,19 @@
     </mat-card-title>
     <mat-card-title *ngIf="id.value">Düzenle <mat-icon matSuffix>person</mat-icon>
     </mat-card-title>
-    <mat-card-subtitle>todo</mat-card-subtitle>
+    <mat-card-subtitle>Kayıt Ekle</mat-card-subtitle>
     <form [formGroup]="archiveForm" (ngSubmit)="onSubmit()">
         <mat-card-content>
             <div class="form-row">
                 <mat-form-field class="form__input" appearance="fill">
-                    <mat-label>ad *</mat-label>
+                    <mat-label>Ad soyad *</mat-label>
                     <input type="text" matInput placeholder="ad soyad" formControlName="name" />
                     <mat-error *ngIf="name.invalid && name.touched">ad soyad yazınız.</mat-error>
                 </mat-form-field>
             </div>
             <div class="form-row">
                 <mat-form-field class="form__input" appearance="fill">
-                    <mat-label>dno *</mat-label>
+                    <mat-label>Dosya No *</mat-label>
                     <input type="text" matInput placeholder="d_no" formControlName="d_no" />
                     <mat-error *ngIf="d_no.invalid && d_no.touched">d_no.</mat-error>
                 </mat-form-field>
@@ -23,14 +23,14 @@
 
             <div class="form-row">
                 <mat-form-field class="form__input" appearance="fill">
-                    <mat-label>s_no *</mat-label>
+                    <mat-label>Sıra No *</mat-label>
                     <input type="text" matInput placeholder="s_no" formControlName="s_no" />
                     <mat-error *ngIf="s_no.invalid && s_no.touched">s_no.</mat-error>
                 </mat-form-field>
             </div>
             <div class="form-row">
                 <mat-form-field class="form__input" appearance="fill">
-                    <mat-label>tc *</mat-label>
+                    <mat-label>Kimlik Numarası *</mat-label>
                     <input type="text" matInput placeholder="tc" formControlName="tc" />
                     <mat-error *ngIf="tc.invalid && tc.touched">tc.</mat-error>
                 </mat-form-field>

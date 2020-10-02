@@ -139,32 +139,9 @@ export class ArchiveListComponent implements OnInit {
     }
   }
 
-  editOrAddArchive(archive?: IArchive): void {
-    try {
-      const dialogRef = this.dialog.open(ArchiveAddComponent, {
-        minWidth: '75%',
-        minHeight: '75%',
-        data: { ...archive }
-      });
-
-      dialogRef.afterClosed().subscribe(async () => {
-        await this.getArchives();
-      });
-    } catch (err) {
-      console.error(err);
-      this._snackBar.open(
-        `hata oluştu ${archive.id ? 'düzenleme' : 'ekleme işlemi'
-        }  `,
-        'OK',
-        {
-          duration: 2000
-        }
-      );
-    }
-  }
   onExportExcel() {
     console.log(this.archives);
-    this.excelservice.jsonToSheetExport('dasd.xlsx', 'sorgu', this.archives);
+    this.excelservice.jsonToSheetExport(new Date().toDateString() + 'sorgu.xlsx', 'sorgu', this.archives);
   }
 
 

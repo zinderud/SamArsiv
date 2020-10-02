@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 
 import IArchive from '../../../shared/interfaces/archive.interface';
 import { DatabaseService } from '../../../shared/services/database/database.service';
@@ -15,9 +15,11 @@ import { ArchiveEntity } from '../../../shared/entities/archive.entitiy';
 })
 export class ArchiveAddComponent implements OnInit {
   public archiveForm: FormGroup;
-
+  @Input() Id: number;
   constructor(
     private _fb: FormBuilder,
+    /*    public dialogRef: MatDialogRef<ArchiveAddComponent>, */
+    /*    @Inject(MAT_DIALOG_DATA) public data: IArchive, */
     private _databaseService: DatabaseService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -32,13 +34,17 @@ export class ArchiveAddComponent implements OnInit {
       name: [null],
       tc: [null],
     });
+    if (this.Id) {
+      await this.getArchive(this.Id);
+    } else {
+      this.route.paramMap.subscribe(async params => {
+        this.id.patchValue(parseInt(params['params'].id, null));
+        if (this.id.value) {
+          await this.getArchive(this.id.value);
+        }
+      });
+    }
 
-    this.route.paramMap.subscribe(async params => {
-      this.id.patchValue(parseInt(params['params'].id, null));
-      if (this.id.value) {
-        await this.getArchive(this.id.value);
-      }
-    });
   }
 
   get id() {
@@ -75,69 +81,8 @@ export class ArchiveAddComponent implements OnInit {
     }
   }
 
-  async deactivateArchive() {
-    try {
-      const archive = this.archiveForm.value as IArchive;
 
-      const confirmation = {
-        message: 'silme işlemi',
-        data: archive.name,
-        action: 'sil'
-      };
 
-      const dialogRef = this.dialog.open(ConfirmationComponent, {
-        minWidth: '25%',
-        minHeight: '25%',
-        data: { ...confirmation }
-      });
-
-      dialogRef.afterClosed().subscribe(async data => {
-        if (data) {
-          await this._databaseService.connection.then(async () => {
-            await ArchiveEntity.update({ id: archive.id }, { name: archive.name });
-            this.archiveForm.controls.status.setValue(false);
-          });
-        }
-      });
-    } catch (err) {
-      console.error(err);
-      this._snackBar.open('hata .', 'OK', {
-        duration: 2000
-      });
-    }
-  }
-
-  async activateArchive() {
-    try {
-      const archive = this.archiveForm.value as IArchive;
-
-      const confirmation = {
-        message: 'aktif',
-        data: archive.name,
-        action: 'aktif'
-      };
-
-      const dialogRef = this.dialog.open(ConfirmationComponent, {
-        minWidth: '25%',
-        minHeight: '25%',
-        data: { ...confirmation }
-      });
-
-      dialogRef.afterClosed().subscribe(async data => {
-        if (data) {
-          await this._databaseService.connection.then(async () => {
-            await ArchiveEntity.update({ id: archive.id }, { name: archive.name });
-            this.archiveForm.controls.status.setValue(true);
-          });
-        }
-      });
-    } catch (err) {
-      console.error(err);
-      this._snackBar.open('hata.', 'OK', {
-        duration: 2000
-      });
-    }
-  }
 
   async onSubmit() {
     try {
