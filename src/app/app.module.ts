@@ -53,7 +53,6 @@ import { ArchiveAddComponent } from './archive/archive-add/archive-add.component
 import { ArchiveListComponent } from './archive/archive-list/archive-list.component';
 import { ExportXlsService } from 'src/shared/services/export.xls.service';
 import { ArchiveImportComponent } from './archive/archive-import/archive-import.component';
-import { MaterialFileUploadComponent } from '../shared/components/material-file-upload/material-file-upload.component';
 
 
 @Injectable()
@@ -93,7 +92,7 @@ const appRoutes: Routes = [
     AppComponent,
     MenuComponent,
 
-    ConfirmationComponent, ArchiveAddComponent, ArchiveListComponent, MaterialFileUploadComponent,
+    ConfirmationComponent, ArchiveAddComponent, ArchiveListComponent,
     DisplayNamesPipe,
     HomeComponent,
     ArchiveImportComponent
