@@ -1,0 +1,56 @@
+﻿<Window x:Class="UI.MainWindow"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+         Title="SamArşiv" Height="450" Width="600"  MinHeight="250" MinWidth="300" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Width="152" Margin="0,10,10,385">
+
+            <TextBox x:Name="contactsSearch" TextWrapping="Wrap" Text="" TextChanged="contactsSearch_TextChanged" Width="152" RenderTransformOrigin="0.5,0.5"/>
+
+        </StackPanel>
+        <TabControl x:Name="tabControl" Grid.Column="0" Grid.Row="0" Margin="0,24,0,0" SelectionChanged="tabControl_SelectionChanged">
+            <TabItem Header="Arşiv kayıt">
+                <Grid Margin="0,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="103*"/>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="327*"/>
+                        <ColumnDefinition Width="132*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid IsReadOnly="True" x:Name="contactsGrid" AutoGenerateColumns="True" CanUserSortColumns="False" Margin="0,1" ColumnWidth="*"
+                 ItemsSource="{Binding ContactsModel}"
+                 SelectedItem="{Binding SelectedContactModel}" Grid.ColumnSpan="4"/>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="2" Width="257" Grid.ColumnSpan="2">
+
+                        <Button x:Name="buttonAdd" Content="Kişi Ekle" Command="{Binding AddCommand}" Width="75" Height="23" Margin="5"/>
+                        <Button x:Name="buttonEdit" Content="Düzenle" Command="{Binding EditCommand}" Width="75" Height="23" Margin="5"/>
+                        <Button x:Name="buttonDelete" Command="{Binding RemoveCommand}" Content="Sil" Width="75" Height="23" Margin="5"/>
+
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+             
+        </TabControl>
+
+    </Grid>
+</Window>
